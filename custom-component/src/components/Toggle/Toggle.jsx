@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useButtonToggle } from 'hooks/useButtonToggle';
+import { useButtonToggle } from 'hooks';
 import { ToggleButton } from './Toggle.styled';
 import { Container } from 'styles/components/Container';
 
