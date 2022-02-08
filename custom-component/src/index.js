@@ -2,9 +2,10 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { App } from 'pages';
-
+import { GlobalStyle } from 'styles/GlobalStyle';
 ReactDOM.render(
   <StrictMode>
+    <GlobalStyle />
     <App />
   </StrictMode>,
   document.getElementById('root')
