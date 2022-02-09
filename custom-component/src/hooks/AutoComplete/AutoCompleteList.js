@@ -53,7 +53,6 @@ export class AutoCompleteList {
   }
 
   getSameWords(targetWord) {
-    console.log(targetWord);
     if (!targetWord) return this.getAllWords();
 
     const sameWords = [];
