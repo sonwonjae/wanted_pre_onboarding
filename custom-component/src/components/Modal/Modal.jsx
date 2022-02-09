@@ -34,9 +34,15 @@ Modal.Dialog = function Dialog({ closeModal }) {
     [firstEl, lastEl]
   );
 
+  const focusOnFirstEl = useCallback(() => firstEl.focus(), [firstEl]);
+
   return createPortal(
     <Overlay onClick={closeModal}>
-      <DialogContainer ref={modalRef} onKeyDown={keyboardTrapInModal}>
+      <DialogContainer
+        ref={modalRef}
+        onKeyDown={keyboardTrapInModal}
+        onClick={focusOnFirstEl}
+      >
         <button onClick={closeModal}>×</button>
         HELLO CODESTATES!
       </DialogContainer>
