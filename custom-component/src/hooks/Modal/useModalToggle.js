@@ -1,4 +1,4 @@
-const { useState } = require('react');
+import { useState } from 'react';
 
 export const useModalToggle = (isShowModal = false) => {
   const [showModal, setShowModal] = useState(isShowModal);
