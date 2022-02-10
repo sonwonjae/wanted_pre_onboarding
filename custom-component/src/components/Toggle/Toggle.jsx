@@ -1,10 +1,10 @@
 import { memo } from 'react';
-import { useButtonToggle } from 'hooks';
+import { useToggle } from 'hooks';
 import { ToggleButton } from './Toggle.styled';
 import { Container } from 'styles/components/Container';
 
 function Toggle({ width }) {
-  const [selected, toggleButton] = useButtonToggle(false);
+  const [selected, toggleButton] = useToggle(false);
 
   return (
     <Container gap={10}>
