@@ -24,6 +24,18 @@ function AutoComplete() {
 
   const isInput = !!inputRef.current?.value;
 
+  const inputProps = {
+    ref: inputRef,
+    onInput: updateMatchWords,
+    onKeyUp: setAutoCompleteWord,
+    isFocus: isFocus && isInput,
+  };
+
+  const matchWordListProps = {
+    ref: matchWordsRef,
+    children: makeMatchWords(matchWords),
+  };
+
   useEffect(() => {
     document.body.addEventListener('click', onBlurToAutoComplete);
     return function cleanup() {
@@ -33,17 +45,8 @@ function AutoComplete() {
 
   return (
     <AutoCompleteContainer ref={autocompleteRef} onFocus={onIsFocus}>
-      <Input
-        ref={inputRef}
-        onInput={updateMatchWords}
-        onKeyUp={setAutoCompleteWord}
-        isFocus={isFocus && isInput}
-      />
-      {isInput && isFocus && (
-        <MatchWordList ref={matchWordsRef}>
-          {makeMatchWords(matchWords)}
-        </MatchWordList>
-      )}
+      <Input {...inputProps} />
+      {isInput && isFocus && <MatchWordList {...matchWordListProps} />}
     </AutoCompleteContainer>
   );
 }
