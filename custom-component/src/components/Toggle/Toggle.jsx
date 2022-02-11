@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useToggle } from 'hooks';
-import { ToggleButton } from './Toggle.styled';
+import { ToggleButton } from './style';
 import { Container } from 'styles/components/Container';
 
 function Toggle({ width }) {
