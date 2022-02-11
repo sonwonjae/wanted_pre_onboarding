@@ -3,13 +3,13 @@ import { memo } from 'react';
 import { Button } from './style';
 import { Dialog } from './Compound';
 
-function Modal() {
+function Modal({ children }) {
   const [showModal, toggleModal] = useModalToggle(false);
 
   return (
     <>
       <Button onClick={toggleModal}>Open Modal</Button>
-      {showModal && <Dialog closeModal={toggleModal} />}
+      {showModal && <Dialog closeModal={toggleModal}>{children}</Dialog>}
     </>
   );
 }
