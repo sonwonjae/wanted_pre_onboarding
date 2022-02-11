@@ -6,6 +6,9 @@ const autoCompleteList = new AutoCompleteList();
 export const useAutoComplete = () => {
   const [matchWords, setmatchWords] = useState([]);
 
+  const setInitMatchWords = (initMatchWords) =>
+    initMatchWords.forEach((matchWord) => autoCompleteList.insert(matchWord));
+
   const addWord = (e) => {
     if (e.key !== 'Enter') return;
     autoCompleteList.insert(e.target.value);
@@ -18,5 +21,5 @@ export const useAutoComplete = () => {
     setmatchWords(autoCompleteList.getSameWords(e.target.value));
   };
 
-  return { matchWords, addWord, updateMatchWords };
+  return { matchWords, addWord, setInitMatchWords, updateMatchWords };
 };

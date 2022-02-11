@@ -9,12 +9,13 @@ import {
 import { useAutoCompleteController } from './controller';
 import { useAutoCompleteView } from './view';
 
-function AutoComplete() {
+function AutoComplete({ initMatchWords }) {
   const autocompleteRef = useRef();
   const matchWordsRef = useRef();
   const inputRef = useRef();
   const [isFocus, _, onIsFocus, offIsFocus] = useToggle();
-  const { matchWords, addWord, updateMatchWords } = useAutoComplete();
+  const { matchWords, addWord, setInitMatchWords, updateMatchWords } =
+    useAutoComplete();
   const {
     targetOnFocus,
     updateMatchWord,
@@ -50,6 +51,8 @@ function AutoComplete() {
     children: makeMatchWords(matchWords),
   };
 
+  setInitMatchWords(initMatchWords);
+
   useEffect(() => {
     document.body.addEventListener('click', onBlurToAutoComplete);
     return function cleanup() {
@@ -65,5 +68,19 @@ function AutoComplete() {
     </AutoCompleteContainer>
   );
 }
+AutoComplete.defaultProps = {
+  initMatchWords: [
+    'apple',
+    'april',
+    'banana',
+    'code',
+    'states',
+    'wanted',
+    'pineapple',
+    'asgard',
+    'bottom',
+    'early bird',
+  ],
+};
 
 export default memo(AutoComplete);

@@ -55,6 +55,8 @@ export class AutoCompleteList {
   getSameWords(targetWord) {
     if (!targetWord) return this.getAllWords();
 
+    targetWord = targetWord.trim().toLowerCase();
+
     const sameWords = [];
 
     let cur = this.root;
