@@ -6,7 +6,7 @@ function Toggle({ width }) {
   const [selected, toggleButton] = useToggle(false);
 
   return (
-    <ToggleContainer gap={10}>
+    <ToggleContainer>
       <ToggleButton onClick={toggleButton} isSelected={selected} size={width} />
       <span>Toggle Switch {selected ? 'ON' : 'OFF'}</span>
     </ToggleContainer>
