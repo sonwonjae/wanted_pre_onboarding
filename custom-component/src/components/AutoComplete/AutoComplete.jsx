@@ -13,8 +13,7 @@ function AutoComplete() {
   const inputRef = useRef();
   const isInput = !!inputRef.current?.value;
   const [isFocus, _, onIsFocus, offIsFocus] = useToggle();
-  const { matchWords, isAutoCompleteList, addWord, updateMatchWords } =
-    useAutoComplete();
+  const { matchWords, addWord, updateMatchWords } = useAutoComplete();
 
   const updateMatchWord = useCallback(
     (e) => {
@@ -64,7 +63,7 @@ function AutoComplete() {
         onKeyUp={setAutoCompleteWord}
         isFocus={isFocus && isInput}
       />
-      {isAutoCompleteList && isInput && isFocus && (
+      {isInput && isFocus && (
         <MatchWordList>{makeMatchWords(matchWords)}</MatchWordList>
       )}
     </AutoCompleteContainer>
