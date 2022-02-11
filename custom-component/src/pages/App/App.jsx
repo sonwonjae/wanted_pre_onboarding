@@ -16,6 +16,10 @@ const lazyComponents = {
   PageNotFound: lazy(() => import('components/Util/Route/PageNotFound')),
 };
 
+const props = {
+  Modal: { children: 'HEllO CODESTATES!' },
+};
+
 const tabList = Object.keys(lazyComponents).filter(
   (tab) => tab !== 'Index' && tab !== 'PageNotFound'
 );
@@ -32,7 +36,7 @@ function App() {
             </Suspense>
           }
         >
-          {makeRouteComponents(lazyComponents)}
+          {makeRouteComponents(lazyComponents, props)}
         </Route>
       </Routes>
     </div>
