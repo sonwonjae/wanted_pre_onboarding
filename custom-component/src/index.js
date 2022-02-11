@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { App } from 'pages';
 import { GlobalStyle } from 'styles/GlobalStyle';
+import { BrowserRouter } from 'react-router-dom';
+
 ReactDOM.render(
   <StrictMode>
     <GlobalStyle />
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
   document.getElementById('root')
 );
