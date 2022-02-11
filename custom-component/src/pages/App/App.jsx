@@ -1,6 +1,6 @@
 import { Tab } from 'components';
 import { lazy } from 'react';
-import { Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { makeRouteComponents } from 'utils';
 import './App.css';
 
@@ -15,15 +15,17 @@ const lazyComponents = {
 };
 
 function App() {
-  const tabList = Object.keys(lazyComponents);
-  tabList.shift();
-  tabList.pop();
+  const tabList = Object.keys(lazyComponents).filter(
+    (tab) => tab !== 'Index' && tab !== 'PageNotFound'
+  );
 
   return (
     <div className="App">
-      <Tab tabList={tabList}>
-        <Routes>{makeRouteComponents(lazyComponents)}</Routes>
-      </Tab>
+      <Routes>
+        <Route path="/" element={<Tab tabList={tabList} />}>
+          {makeRouteComponents(lazyComponents)}
+        </Route>
+      </Routes>
     </div>
   );
 }

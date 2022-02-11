@@ -9,7 +9,7 @@ const wrapSuspense = (Component) => (
 
 export const makeRouteComponents = (lazyComponents) =>
   Object.keys(lazyComponents).map((tab) => {
-    const path = tab === 'Index' ? '/' : tab === 'PageNotFound' ? '*' : tab;
+    const path = tab === 'Index' ? '' : tab === 'PageNotFound' ? '*' : tab;
 
     return (
       <Route

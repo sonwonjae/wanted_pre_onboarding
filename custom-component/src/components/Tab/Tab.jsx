@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { Nav, NavLinkList, NavLinkItem, Main } from './Tab.styled';
 
-function Tab({ tabList, children }) {
+function Tab({ tabList }) {
   const setIsActiveClassName = ({ isActive }) => (isActive ? 'active' : null);
 
   const makeNavLinkList = () =>
@@ -21,7 +21,9 @@ function Tab({ tabList, children }) {
       <Nav>
         <NavLinkList>{makeNavLinkList()}</NavLinkList>
       </Nav>
-      <Main>{children}</Main>
+      <Main>
+        <Outlet />
+      </Main>
     </>
   );
 }
