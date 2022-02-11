@@ -1,53 +1,32 @@
-import { memo, useEffect, useRef, useCallback } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useAutoComplete, useToggle } from 'hooks';
 import {
   MatchWordList,
-  MatchWord,
   Input,
   AutoCompleteContainer,
 } from './AutoComplete.styled';
-import { makeClassNames } from 'utils';
+import { useAutoCompleteController } from './AutoComplete.controller';
+import { useAutoCompleteView } from './AutoComplete.view';
 
 function AutoComplete() {
   const autocompleteRef = useRef();
+  const matchWordsRef = useRef();
   const inputRef = useRef();
-  const isInput = !!inputRef.current?.value;
   const [isFocus, _, onIsFocus, offIsFocus] = useToggle();
   const { matchWords, addWord, updateMatchWords } = useAutoComplete();
+  const { updateMatchWord, setAutoCompleteWord, onBlurToAutoComplete } =
+    useAutoCompleteController({
+      inputRef,
+      autocompleteRef,
+      matchWordsRef,
+      updateMatchWords,
+      onIsFocus,
+      offIsFocus,
+      addWord,
+    });
+  const { makeMatchWords } = useAutoCompleteView({ updateMatchWord });
 
-  const updateMatchWord = useCallback(
-    (e) => {
-      const value = e.target.textContent;
-
-      inputRef.current.value = value;
-      updateMatchWords({ target: { value: value } });
-      offIsFocus();
-    },
-    [inputRef]
-  );
-
-  const setAutoCompleteWord = useCallback((e) => {
-    onIsFocus();
-    addWord(e);
-  }, []);
-
-  const onBlurToAutoComplete = useCallback((e) => {
-    if (!autocompleteRef.current) return;
-    if (e.target.closest(makeClassNames(autocompleteRef.current.classList))) {
-      return;
-    }
-    offIsFocus();
-  }, []);
-
-  const makeMatchWords = useCallback(
-    (matchWords) =>
-      matchWords.map((matchWord) => (
-        <MatchWord key={matchWord} onClick={updateMatchWord}>
-          {matchWord}
-        </MatchWord>
-      )),
-    [updateMatchWord]
-  );
+  const isInput = !!inputRef.current?.value;
 
   useEffect(() => {
     document.body.addEventListener('click', onBlurToAutoComplete);
@@ -65,7 +44,9 @@ function AutoComplete() {
         isFocus={isFocus && isInput}
       />
       {isInput && isFocus && (
-        <MatchWordList>{makeMatchWords(matchWords)}</MatchWordList>
+        <MatchWordList ref={matchWordsRef}>
+          {makeMatchWords(matchWords)}
+        </MatchWordList>
       )}
     </AutoCompleteContainer>
   );

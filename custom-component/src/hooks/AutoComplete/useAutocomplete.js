@@ -10,6 +10,7 @@ export const useAutoComplete = () => {
     if (e.key !== 'Enter') return;
     autoCompleteList.insert(e.target.value);
     e.target.value = '';
+    setmatchWords(autoCompleteList.getSameWords(e.target.value));
   };
 
   const updateMatchWords = (e) => {
