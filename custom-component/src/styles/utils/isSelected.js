@@ -1,2 +1,2 @@
 export const showElement = ({ isSelected }) =>
-  `translate(${isSelected ? 0 : -100}%)`;
+  `translate(${isSelected ? 0 : -110}%)`;
