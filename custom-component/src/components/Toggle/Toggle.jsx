@@ -1,16 +1,15 @@
 import { memo } from 'react';
 import { useToggle } from 'hooks';
-import { ToggleButton } from './Toggle.styled';
-import { Container } from 'styles/components/Container';
+import { ToggleContainer, ToggleButton } from './style';
 
 function Toggle({ width }) {
   const [selected, toggleButton] = useToggle(false);
 
   return (
-    <Container gap={10}>
+    <ToggleContainer gap={10}>
       <ToggleButton onClick={toggleButton} isSelected={selected} size={width} />
       <span>Toggle Switch {selected ? 'ON' : 'OFF'}</span>
-    </Container>
+    </ToggleContainer>
   );
 }
 Toggle.defaultProps = {

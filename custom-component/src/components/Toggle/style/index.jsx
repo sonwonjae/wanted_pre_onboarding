@@ -4,6 +4,14 @@ import { showElement } from 'styles/utils/isSelected';
 import { shuttleSwitch } from 'styles/utils/mix';
 import { getSize, setRatioSize } from 'styles/utils/size';
 
+export const ToggleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ gap }) => gap || 10}px;
+`;
+
 export const ToggleButton = styled.button`
   position: relative;
   width: ${setRatioSize(2.25)}px;

@@ -1,20 +1,10 @@
 import { memo } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
-import { Nav, NavLinkList, NavLinkItem, Main } from './Tab.styled';
+import { Outlet } from 'react-router-dom';
+import { Nav, NavLinkList, Main } from './style';
+import { useTabView } from './view';
 
 function Tab({ tabList }) {
-  const setIsActiveClassName = ({ isActive }) => (isActive ? 'active' : null);
-
-  const makeNavLinkList = () =>
-    tabList.map((tab) => {
-      return (
-        <NavLinkItem key={tab}>
-          <NavLink to={tab} className={setIsActiveClassName}>
-            {tab}
-          </NavLink>
-        </NavLinkItem>
-      );
-    });
+  const { makeNavLinkList } = useTabView({ tabList });
 
   return (
     <>
