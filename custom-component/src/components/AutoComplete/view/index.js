@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { MatchWord } from './AutoComplete.styled';
+import { MatchWord } from '../style';
 
 export const useAutoCompleteView = ({ updateMatchWord }) => {
   const makeMatchWords = useCallback(

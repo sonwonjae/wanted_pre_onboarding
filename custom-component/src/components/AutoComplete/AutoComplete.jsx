@@ -1,12 +1,8 @@
 import { memo, useEffect, useRef } from 'react';
 import { useAutoComplete, useToggle } from 'hooks';
-import {
-  MatchWordList,
-  Input,
-  AutoCompleteContainer,
-} from './AutoComplete.styled';
-import { useAutoCompleteController } from './AutoComplete.controller';
-import { useAutoCompleteView } from './AutoComplete.view';
+import { MatchWordList, Input, AutoCompleteContainer } from './style';
+import { useAutoCompleteController } from './controller';
+import { useAutoCompleteView } from './view';
 
 function AutoComplete() {
   const autocompleteRef = useRef();
