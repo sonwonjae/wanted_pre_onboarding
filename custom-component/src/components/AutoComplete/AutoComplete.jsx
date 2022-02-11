@@ -32,6 +32,7 @@ function AutoComplete() {
   }, []);
 
   const onBlurToAutoComplete = useCallback((e) => {
+    if (!autocompleteRef.current) return;
     if (e.target.closest(makeClassNames(autocompleteRef.current.classList))) {
       return;
     }
