@@ -1,8 +1,10 @@
-import { Tab } from 'components';
 import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Suspense } from 'react/cjs/react.production.min';
 import { makeRouteComponents } from 'utils';
 import './App.css';
+
+const Tab = lazy(() => import('components/Tab/Tab'));
 
 const lazyComponents = {
   Index: lazy(() => import('components/Util/Route/Index')),
@@ -14,15 +16,22 @@ const lazyComponents = {
   PageNotFound: lazy(() => import('components/Util/Route/PageNotFound')),
 };
 
-function App() {
-  const tabList = Object.keys(lazyComponents).filter(
-    (tab) => tab !== 'Index' && tab !== 'PageNotFound'
-  );
+const tabList = Object.keys(lazyComponents).filter(
+  (tab) => tab !== 'Index' && tab !== 'PageNotFound'
+);
 
+function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Tab tabList={tabList} />}>
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<>...Loading</>}>
+              <Tab tabList={tabList} />
+            </Suspense>
+          }
+        >
           {makeRouteComponents(lazyComponents)}
         </Route>
       </Routes>
