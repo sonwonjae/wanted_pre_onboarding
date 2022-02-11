@@ -9,7 +9,7 @@ export const ToggleContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: ${({ gap }) => gap || 10}px;
+  gap: 0.6rem;
 `;
 
 export const ToggleButton = styled.button`

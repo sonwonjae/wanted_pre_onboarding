@@ -3,7 +3,7 @@ import { memo, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { DialogContainer, Overlay } from '../style';
 
-function Dialog({ closeModal }) {
+function Dialog({ closeModal, children }) {
   const modalRef = useRef();
   const [firstEl, lastEl] = useFocusableElements(modalRef);
 
@@ -33,7 +33,7 @@ function Dialog({ closeModal }) {
         onClick={focusOnFirstEl}
       >
         <button onClick={closeModal}>×</button>
-        HELLO CODESTATES!
+        {children}
       </DialogContainer>
     </Overlay>,
     document.body

@@ -10,6 +10,10 @@ export const useAutoCompleteController = ({
   offIsFocus,
   addWord,
 }) => {
+  const targetOnFocus = (e) => {
+    if (e.target === e.currentTarget) onIsFocus();
+  };
+
   const updateMatchWord = useCallback(
     (e) => {
       const value = e.target.textContent;
@@ -22,7 +26,8 @@ export const useAutoCompleteController = ({
   );
 
   const setAutoCompleteWord = useCallback((e) => {
-    onIsFocus();
+    e.preventDefault();
+
     addWord(e);
   }, []);
 
@@ -36,5 +41,31 @@ export const useAutoCompleteController = ({
     offIsFocus();
   }, []);
 
-  return { updateMatchWord, setAutoCompleteWord, onBlurToAutoComplete };
+  const moveMatchWords = useCallback(
+    (e) => {
+      onIsFocus();
+      if (!matchWordsRef.current || !matchWordsRef.current.firstChild) {
+        e.key === 'Escape' && offIsFocus();
+        return;
+      }
+
+      if (!(e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Escape'))
+        return;
+
+      e.key === 'ArrowDown' && matchWordsRef.current.firstChild.focus();
+      e.key === 'ArrowUp' && matchWordsRef.current.lastChild.focus();
+      e.key === 'Escape' && offIsFocus();
+
+      e.preventDefault();
+    },
+    [matchWordsRef]
+  );
+
+  return {
+    targetOnFocus,
+    updateMatchWord,
+    setAutoCompleteWord,
+    onBlurToAutoComplete,
+    moveMatchWords,
+  };
 };

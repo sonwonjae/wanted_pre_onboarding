@@ -1,13 +1,13 @@
 import { Suspense } from 'react';
 import { Route } from 'react-router-dom';
 
-const wrapSuspense = (Component) => (
+const wrapSuspense = (Component, props) => (
   <Suspense fallback={<>...Loading</>}>
-    <Component />
+    <Component {...props} />
   </Suspense>
 );
 
-export const makeRouteComponents = (lazyComponents) =>
+export const makeRouteComponents = (lazyComponents, props) =>
   Object.keys(lazyComponents).map((tab) => {
     const path = tab === 'Index' ? '' : tab === 'PageNotFound' ? '*' : tab;
 
@@ -15,7 +15,7 @@ export const makeRouteComponents = (lazyComponents) =>
       <Route
         key={tab}
         path={path}
-        element={wrapSuspense(lazyComponents[tab])}
+        element={wrapSuspense(lazyComponents[tab], props[tab] || {})}
       />
     );
   });

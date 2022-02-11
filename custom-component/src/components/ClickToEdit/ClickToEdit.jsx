@@ -1,14 +1,14 @@
 import { memo } from 'react';
 import { A11yHidden } from 'components/Util';
 import { useFormInfo } from 'hooks';
-import { initFormInput, reducer } from './setting';
+import { initFormInputList, reducer } from './setting';
 import { Form, AllInfo } from './style';
 import { useClickToEditView } from './view';
 
-function ClickToEdit() {
+function ClickToEdit({ formInputList }) {
   const [{ allInfo, updateAllInfo }, { formInputs, dispatch }] = useFormInfo({
     reducer,
-    initialState: initFormInput,
+    initialState: formInputList,
   });
   const { makeInfoInputs } = useClickToEditView({ dispatch, updateAllInfo });
 
@@ -22,5 +22,8 @@ function ClickToEdit() {
     </div>
   );
 }
+ClickToEdit.defaultProps = {
+  formInputList: initFormInputList,
+};
 
 export default memo(ClickToEdit);
