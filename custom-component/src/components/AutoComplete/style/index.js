@@ -25,17 +25,22 @@ export const Input = styled.input`
     box-shadow: -4px 5px 8px 0px ${getHexaColor('gray', 300)}5;
 
     & ~ ul {
-      /* visibility: visible; */
       box-sizing: border-box;
       border: 1px solid ${getHexaColor('gray', 100)};
       border-top: none;
       border-radius: 0 0 0.75rem 0.75rem;
     }
   }
+`;
 
-  /* & ~ ul {
-    visibility: hidden;
-  } */
+export const EscapeButton = styled.button`
+  position: absolute;
+  right: 1rem;
+  padding: 0.25rem;
+  line-height: 0.6;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 `;
 
 export const MatchWordList = styled.ul`
@@ -60,7 +65,9 @@ export const MatchWord = styled.li`
   line-height: 1.5;
   font-size: 1rem;
 
-  &:hover {
+  &:hover,
+  &:focus {
+    outline: none;
     background-color: ${getHexaColor('gray', 300)}3;
   }
 

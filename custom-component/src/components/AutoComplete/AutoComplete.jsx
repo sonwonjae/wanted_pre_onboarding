@@ -1,6 +1,11 @@
 import { memo, useEffect, useRef } from 'react';
 import { useAutoComplete, useToggle } from 'hooks';
-import { MatchWordList, Input, AutoCompleteContainer } from './style';
+import {
+  MatchWordList,
+  EscapeButton,
+  Input,
+  AutoCompleteContainer,
+} from './style';
 import { useAutoCompleteController } from './controller';
 import { useAutoCompleteView } from './view';
 
@@ -10,17 +15,25 @@ function AutoComplete() {
   const inputRef = useRef();
   const [isFocus, _, onIsFocus, offIsFocus] = useToggle();
   const { matchWords, addWord, updateMatchWords } = useAutoComplete();
-  const { updateMatchWord, setAutoCompleteWord, onBlurToAutoComplete } =
-    useAutoCompleteController({
-      inputRef,
-      autocompleteRef,
-      matchWordsRef,
-      updateMatchWords,
-      onIsFocus,
-      offIsFocus,
-      addWord,
-    });
-  const { makeMatchWords } = useAutoCompleteView({ updateMatchWord });
+  const {
+    targetOnFocus,
+    updateMatchWord,
+    setAutoCompleteWord,
+    onBlurToAutoComplete,
+    moveMatchWords,
+  } = useAutoCompleteController({
+    inputRef,
+    autocompleteRef,
+    matchWordsRef,
+    updateMatchWords,
+    onIsFocus,
+    offIsFocus,
+    addWord,
+  });
+  const { makeMatchWords } = useAutoCompleteView({
+    updateMatchWord,
+    offIsFocus,
+  });
 
   const isInput = !!inputRef.current?.value;
 
@@ -28,6 +41,7 @@ function AutoComplete() {
     ref: inputRef,
     onInput: updateMatchWords,
     onKeyUp: setAutoCompleteWord,
+    onKeyDown: moveMatchWords,
     isFocus: isFocus && isInput,
   };
 
@@ -44,9 +58,10 @@ function AutoComplete() {
   }, [onBlurToAutoComplete]);
 
   return (
-    <AutoCompleteContainer ref={autocompleteRef} onFocus={onIsFocus}>
+    <AutoCompleteContainer ref={autocompleteRef} onFocus={targetOnFocus}>
       <Input {...inputProps} />
       {isInput && isFocus && <MatchWordList {...matchWordListProps} />}
+      <EscapeButton onClick={offIsFocus}>x</EscapeButton>
     </AutoCompleteContainer>
   );
 }

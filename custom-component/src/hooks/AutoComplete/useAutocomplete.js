@@ -14,6 +14,7 @@ export const useAutoComplete = () => {
   };
 
   const updateMatchWords = (e) => {
+    if (e.target.value === null) setmatchWords([]);
     setmatchWords(autoCompleteList.getSameWords(e.target.value));
   };
 
