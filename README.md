@@ -10,7 +10,9 @@
 
 2. `cd custom-component`
 
-3. `npm start`
+3. `npm i`
+
+4. `npm start`
 
 <br>
 
